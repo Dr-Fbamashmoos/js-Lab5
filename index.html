@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="theme-color" content="#0f233c">
+ <meta name="description" content="CPIT 405 Lab 5: CV 2.0 — Make your existing personal CV interactive with JavaScript DOM. Step-by-step instructions and assessment criteria.">
+ <title>Lab 5 — CV 2.0 | CPIT 405</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <a class="skip" href="#main">Skip to lab instructions</a>
+ <header class="hero">
+  <div class="wrap hero-inner">
+   <div class="eyebrow"><span class="brand-dot"></span> CPIT 405 <span class="tiny-sep">/</span> JavaScript Part 3</div>
+   <h1>Lab 5<span class="hero-highlight"> — CV 2.0</span></h1>
+   <p class="hero-subtitle">Make Your Existing CV Interactive</p>
+   <p class="hero-description">Use the portfolio you created in Lab 3. Add real JavaScript DOM features that visitors can use—without creating a new site or learning backend development.</p>
+   <div class="chips"><span>Individual lab</span><span>10 marks</span><span>HTML + CSS + JS</span><span>GitHub Pages</span></div>
+  </div>
+ </header>
+ <div class="wrap content-grid">
+   <aside class="side-nav" aria-label="On this page">
+     <div class="side-inner">
+       <div class="side-heading">ON THIS PAGE</div>
+       <nav>
+    <a href="#learning-outcomes">Learning outcomes</a>
+    <a href="#getting-started">Setup & your existing CV</a>
+    <a href="#html-hooks">HTML hook reference</a>
+    <a href="#task-1">01 · Theme Switcher</a>
+    <a href="#task-2">02 · About Me Toggle</a>
+    <a href="#task-3">03 · Dynamic Projects</a>
+    <a href="#task-4">04 · Project Filter</a>
+    <a href="#task-5">05 · Print / Save as PDF</a>
+    <a href="#rubric">Assessment rubric</a>
+    <a href="#checklist">Final checklist</a>
+    <a href="#submission">Submission</a>
+</nav>
+       <div class="side-footer">Existing CV <span aria-hidden="true">→</span> Interactive CV</div>
+     </div>
+   </aside>
+   <main id="main" class="main-content">
+     <div class="context-strip" aria-label="Course progression"><div><span class="stage">LAB 3</span><strong>HTML + CSS</strong><small>Build & style</small></div><div class="stage-arrow">→</div><div class="stage-current"><span class="stage">LAB 5</span><strong>JavaScript DOM</strong><small>Make it interactive</small></div><div class="stage-arrow">→</div><div><span class="stage">YOUR PORTFOLIO</span><strong>Public CV</strong><small>Share your link</small></div></div>
+     <article class="markdown-body"><h1>Lab 5 — CV 2.0: Make Your CV Interactive</h1>
+<p><strong>CPIT 405 — JavaScript Part 3: Document Object Model (DOM)</strong><br/>
+<strong>Type:</strong> Individual practical lab · <strong>Marks:</strong> 10 · <strong>Suggested time:</strong> One lab session + completion at home if needed</p>
+<blockquote>
+<p><strong>Use your own CV from Lab 3. Do not create a new CV website.</strong> In Lab 3, you designed it with HTML and CSS. In this lab, you will add useful visitor-facing features with JavaScript DOM. You will receive instructions and method hints, <strong>not a complete JavaScript solution</strong>.</p>
+</blockquote>
+<h2 id="learning-outcomes">1. Learning outcomes</h2>
+<p>By the end of the lab, you should be able to:</p>
+<ul>
+<li>Select elements with <code>getElementById()</code>, <code>querySelector()</code>, or <code>querySelectorAll()</code>.</li>
+<li>Respond to user actions with <code>addEventListener()</code>.</li>
+<li>Modify element content and CSS classes with <code>textContent</code> and <code>classList</code>.</li>
+<li>Create and insert elements using <code>createElement()</code> and <code>appendChild()</code>.</li>
+<li>Organize project data in an array of objects, then display it dynamically.</li>
+<li>Build a useful, responsive CV that can be published through GitHub Pages.</li>
+</ul>
+<h2 id="getting-started">2. Before you start — Use your existing CV</h2>
+<ol>
+<li><p>Open the <strong>same CV website that you created in Lab 3</strong> in VS Code.</p>
+</li>
+<li><p>Keep your existing HTML, CSS, CV sections, and visual design. You may add the few controls and element identifiers described below.</p>
+</li>
+<li><p>Create a new file named <strong><code>script.js</code></strong>, next to your existing <code>index.html</code> and <code>style.css</code> files. If you already have a script file, you can extend it.</p>
+</li>
+<li><p>Link your JavaScript file before the closing <code>&lt;/body&gt;</code> tag:</p>
+<pre><code class="language-html">&lt;script src="script.js"&gt;&lt;/script&gt;
+</code></pre>
+</li>
+<li><p>Run your own CV using Live Server. Open <strong>Inspect → Console</strong>, then check that your JavaScript file loads without errors.</p>
+</li>
+<li><p>Add a short comment above each task in <code>script.js</code>, such as <code>// Task 1 — Theme Switcher</code>.</p>
+</li>
+</ol>
+<p><strong>Suggested file structure:</strong></p>
+<pre><code class="language-text">my-cv/
+├── index.html        ← Your existing CV
+├── style.css         ← Your existing CSS (you may extend it)
+└── script.js         ← New file: your DOM code
+</code></pre>
+<p><strong>GitHub recommendation:</strong> You may continue updating the same CV repository so you keep one professional CV URL. Commit the work for Lab 5 separately so the changes are traceable. If you want to preserve the Lab 3 version, make a copy of that repository first. Do not rebuild the page from scratch.</p>
+<h2 id="html-hooks">3. HTML hooks — Add only what your page needs</h2>
+<p>The <code>id</code> and <code>class</code> values below are <strong>suggested identifiers</strong> to make the instructions consistent. You may adapt them to your CV as long as the corresponding JavaScript selectors are correct.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Suggested HTML hook</th>
+<th style="text-align:left">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Switch theme</td>
+<td style="text-align:left"><code>&lt;button id="theme-toggle" type="button"&gt;</code></td>
+<td style="text-align:left">Header / navigation</td>
+</tr>
+<tr>
+<td style="text-align:left">Toggle extra About text</td>
+<td style="text-align:left"><code>&lt;button id="about-toggle" type="button"&gt;</code></td>
+<td style="text-align:left">About Me section</td>
+</tr>
+<tr>
+<td style="text-align:left">Additional About text</td>
+<td style="text-align:left"><code>&lt;p id="about-extra" hidden&gt;</code></td>
+<td style="text-align:left">About Me section</td>
+</tr>
+<tr>
+<td style="text-align:left">Show dynamically generated projects</td>
+<td style="text-align:left"><code>&lt;div id="projects-container"&gt;&lt;/div&gt;</code></td>
+<td style="text-align:left">Existing Projects section</td>
+</tr>
+<tr>
+<td style="text-align:left">Select project category</td>
+<td style="text-align:left"><code>class="project-filter" data-category="web"</code></td>
+<td style="text-align:left">Projects filter buttons</td>
+</tr>
+<tr>
+<td style="text-align:left">Print / save CV</td>
+<td style="text-align:left"><code>&lt;button id="print-cv" type="button"&gt;</code></td>
+<td style="text-align:left">Header / contact area</td>
+</tr>
+<tr>
+<td style="text-align:left">Hide controls when printing</td>
+<td style="text-align:left"><code>class="no-print"</code></td>
+<td style="text-align:left">Interactive controls</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important:</strong> Keep the content of your original CV. For Task 3, replace only the <strong>static project cards</strong>, not the entire Projects section, with the <code>projects-container</code> placeholder. Tasks 3 and 4 share the same project data and container.</p>
+<h2 id="task-1">Task 1 — Theme Switcher <strong>(2 marks)</strong></h2>
+<p><strong>Goal:</strong> Allow visitors to switch your CV between <strong>Light Mode</strong> and <strong>Dark Mode</strong>.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Add a button to your CV with <code>id="theme-toggle"</code> and a label such as <strong>Dark Mode</strong>.</li>
+<li>In <code>style.css</code>, define a second set of styles when the body has the class <code>.dark-mode</code>. Make sure text, backgrounds, links, and cards remain readable.</li>
+<li>In <code>script.js</code>, select the button using a DOM selector.</li>
+<li>Register a click event using <code>addEventListener()</code>.</li>
+<li>When clicked, toggle the class <code>dark-mode</code> on the page's <code>&lt;body&gt;</code> using <code>classList.toggle()</code>.</li>
+<li>Update the button label so visitors know which mode they can switch to next.</li>
+</ol>
+<p><strong>Expected behavior:</strong> Clicking the button changes the page theme instantly. Clicking it again restores the original theme. No page refresh is needed.</p>
+<p><strong>Method hints:</strong> <code>getElementById()</code>, <code>addEventListener()</code>, <code>document.body</code>, <code>classList.toggle()</code>, <code>textContent</code>.</p>
+<h2 id="task-2">Task 2 — Show More / Show Less <strong>(1.5 marks)</strong></h2>
+<p><strong>Goal:</strong> Keep the About Me section concise while allowing visitors to read more.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Keep a short introduction visible in your existing <strong>About Me</strong> section.</li>
+<li>Place extra details in a separate element, such as <code>&lt;p id="about-extra" hidden&gt;...&lt;/p&gt;</code>.</li>
+<li>Add a button with <code>id="about-toggle"</code> and initial text <strong>Show More</strong>.</li>
+<li>Use JavaScript to respond when the button is clicked.</li>
+<li>Show or hide the extra content by modifying its <code>hidden</code> property (or by toggling a CSS class).</li>
+<li>Change the button label between <strong>Show More</strong> and <strong>Show Less</strong> based on the current state.</li>
+</ol>
+<p><strong>Expected behavior:</strong> Additional About Me text appears and disappears, and the button label updates correctly.</p>
+<p><strong>Method hints:</strong> <code>querySelector()</code>, <code>addEventListener()</code>, <code>.hidden</code>, <code>.textContent</code>.</p>
+<h2 id="task-3">Task 3 — Dynamic Project Cards <strong>(3 marks)</strong></h2>
+<p><strong>Goal:</strong> Display your project cards using <strong>JavaScript data and DOM creation</strong> instead of manually writing every project card in HTML.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>In your existing Projects section, add a container with <code>id="projects-container"</code>.</li>
+<li>Remove or comment out the <strong>old hard-coded project cards</strong> from that container; do not remove the Projects heading or section.</li>
+<li>In <code>script.js</code>, create an array named <code>projects</code> containing <strong>at least two project objects</strong> from <strong>two categories</strong>: <code>web</code> and <code>programming</code>. Projects from this course are acceptable.</li>
+<li>Each project should have a title, category, brief description, and technologies. You may add a working URL if available.</li>
+<li>Create a reusable function named <code>renderProjects(projectsToShow)</code>.</li>
+<li>Inside that function, clear any previously rendered project cards so repeated calls do <strong>not</strong> duplicate them.</li>
+<li>Loop through the supplied projects; for each project, use <code>document.createElement()</code> to create an <code>&lt;article&gt;</code> and the child elements needed to display its content.</li>
+<li>Use <code>textContent</code> to fill elements, and <code>appendChild()</code> to add them to the card and then to <code>#projects-container</code>.</li>
+<li>Add the class <code>project-card</code> to your generated <code>&lt;article&gt;</code> so it can reuse your existing CV styling.</li>
+<li>Call the rendering function to display <strong>all</strong> projects when the page first loads.</li>
+</ol>
+<p><strong>Suggested data structure (data example only, not a solution):</strong></p>
+<pre><code class="language-js">const projects = [
+  {
+    title: "My Personal CV",
+    category: "web",
+    description: "A responsive CV created with HTML and CSS.",
+    technologies: ["HTML", "CSS"],
+    url: "" // Optional: insert a real URL you own
+  }
+  // Add at least one more project in the "programming" category
+];
+</code></pre>
+<p><strong>Expected behavior:</strong> Projects are displayed as cards when the CV loads. Cards are created by JavaScript from data. Updating a project object in <code>script.js</code> and publishing the updated file changes the corresponding project card for all visitors.</p>
+<p><strong>Method hints:</strong> arrays, objects, <code>for...of</code>, <code>createElement()</code>, <code>textContent</code>, <code>appendChild()</code>, <code>classList.add()</code>, <code>remove()</code>.</p>
+<p><strong>Safety:</strong> Use <code>textContent</code> for project titles and descriptions. Do not insert untrusted user input directly through <code>innerHTML</code>.</p>
+<h2 id="task-4">Task 4 — Filter Projects <strong>(2 marks)</strong></h2>
+<p><strong>Goal:</strong> Let visitors view projects by category without reloading the page.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Add three filter buttons <strong>above</strong> the project cards: <strong>All</strong>, <strong>Web</strong>, and <strong>Programming</strong>.</li>
+<li>Give all three buttons the class <code>project-filter</code>.</li>
+<li>Add a <code>data-category</code> attribute to each button with the corresponding value: <code>all</code>, <code>web</code>, or <code>programming</code>.</li>
+<li>Use <code>querySelectorAll()</code> to select the filter buttons and register click listeners.</li>
+<li>When a button is clicked, read its category using <code>dataset.category</code>.</li>
+<li>Use your array of projects with a loop and a condition (<code>if</code>) to decide which projects should be shown. You may use <code>.filter()</code> <strong>if you already know it</strong>, but it is not required for this lab.</li>
+<li>Call the <strong>same <code>renderProjects(...)</code> function from Task 3</strong> with the selected projects. Avoid creating a separate hard-coded project list.</li>
+<li>Indicate the active filter through a CSS class such as <code>.active</code>.</li>
+</ol>
+<p><strong>Expected behavior:</strong> <strong>All</strong> displays every project. <strong>Web</strong> displays only projects whose category is <code>web</code>. <strong>Programming</strong> displays only <code>programming</code> projects. Repeated switching does not duplicate cards.</p>
+<p><strong>Method hints:</strong> <code>querySelectorAll()</code>, <code>addEventListener()</code>, <code>dataset.category</code>, <code>for...of</code>, <code>if</code>, <code>classList</code>.</p>
+<h2 id="task-5">Task 5 — Print / Save CV as PDF <strong>(1.5 marks)</strong></h2>
+<p><strong>Goal:</strong> Let visitors print your CV or save it as a PDF directly from their browser.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Add a <strong>Print / Save as PDF</strong> button with <code>id="print-cv"</code>.</li>
+<li>Add a click event listener in your JavaScript file.</li>
+<li>When clicked, call the browser's print dialog using <code>window.print()</code>.</li>
+<li>In <code>style.css</code>, add a <code>@media print</code> block to make the CV print-friendly.</li>
+<li>Hide navigation, filter buttons, theme controls, and the print button when printing; using a shared class such as <code>.no-print</code> is recommended.</li>
+<li>Ensure text is readable on a white background and project details are visible in print.</li>
+<li>Check the output using <strong>Print Preview</strong>. Choose <strong>Save as PDF</strong> if available in your browser.</li>
+</ol>
+<p><strong>Expected behavior:</strong> The print dialog opens, and the printed/PDF CV excludes unnecessary controls while keeping the profile, education, skills, and projects readable.</p>
+<p><strong>Method hints:</strong> <code>getElementById()</code>, <code>addEventListener()</code>, <code>window.print()</code>, <code>@media print</code>.</p>
+<h2 id="limitations">4. Important limitations</h2>
+<ul>
+<li><strong>No backend or database is needed.</strong> This is a client-side DOM exercise.</li>
+<li>Interactive features work for anyone who opens your published CV. A visitor can switch themes, filter projects, and print the page.</li>
+<li>Visitor interactions do <strong>not</strong> permanently change your published files.</li>
+<li>To permanently edit your CV text, projects, or design, update your source files and push the changes to GitHub. GitHub Pages then serves the updated version.</li>
+<li><strong>Do not build an admin login panel</strong> or attempt to save changes to GitHub using <code>innerHTML</code> or <code>localStorage</code> for this lab.</li>
+</ul>
+<h2 id="rubric">5. Assessment rubric — 10 marks</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Task</th>
+<th style="text-align:right">Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Task 1 — Theme Switcher</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td style="text-align:left">Task 2 — About Me Toggle</td>
+<td style="text-align:right">1.5</td>
+</tr>
+<tr>
+<td style="text-align:left">Task 3 — Dynamic Project Cards</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">Task 4 — Project Filter</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td style="text-align:left">Task 5 — Print / Save as PDF</td>
+<td style="text-align:right">1.5</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Total</strong></td>
+<td style="text-align:right"><strong>10</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="checklist">6. Final checklist</h2>
+<ul>
+<li>[ ] I used the <strong>same CV from Lab 3</strong>, not a new template.</li>
+<li>[ ] My <code>script.js</code> is correctly linked and has no uncaught Console errors.</li>
+<li>[ ] Light/Dark Mode can be toggled repeatedly.</li>
+<li>[ ] About Me extra text can be shown and hidden.</li>
+<li>[ ] Project cards are generated from JavaScript objects.</li>
+<li>[ ] There are at least two projects in two categories.</li>
+<li>[ ] All/Web/Programming filters work without duplicate cards.</li>
+<li>[ ] Print Preview hides controls and preserves useful CV content.</li>
+<li>[ ] My CV works correctly when published to GitHub Pages.</li>
+<li>[ ] I used only information I am comfortable publishing publicly.</li>
+</ul>
+<h2 id="submission">7. Submission on Blackboard</h2>
+<p>Submit <strong>both</strong> links:</p>
+<ol>
+<li><strong>GitHub Repository URL</strong> — the source code for your updated CV.</li>
+<li><strong>GitHub Pages URL</strong> — the live, working CV where all five features can be tested.</li>
+</ol>
+<p><strong>Do not submit the instructor's lab-instructions page as your own CV URL.</strong> Your submission should point to your personal CV website.</p>
+<h3 id="optional-challenge-no-additional-marks">Optional challenge (no additional marks)</h3>
+<p>Use <code>.closest('.project-card')</code> to highlight the project card containing a clicked <strong>Highlight Project</strong> control, or use <code>.parentElement</code> and <code>.children</code> to inspect the DOM tree in the Console. This connects to DOM tree traversal from Part 3.</p>
+</article>
+     <footer class="page-footer">CPIT 405 · Web Applications · Lab 5 — CV 2.0<br><span>Instructions for the personal CV you already built. No backend required.</span></footer>
+   </main>
+ </div>
+</body>
+</html>
