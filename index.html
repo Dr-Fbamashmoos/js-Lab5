@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CPIT405 Lab 5 instructor example: interactive CV built with JavaScript DOM">
+  <title>Sara Ahmed — Interactive CV | CPIT405 Demo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#about">Skip to CV content</a>
+  <header id="profile-header">
+    <div class="header-inner">
+      <div class="top-row">
+        <span class="course-label">CPIT405 · INSTRUCTOR DEMO</span>
+        <button id="theme-toggle" type="button" class="btn btn-ghost no-print" aria-label="Switch to dark mode">☾ Dark Mode</button>
+      </div>
+      <div class="identity">
+        <div class="avatar" aria-hidden="true">SA</div>
+        <div>
+          <p class="intro-label">HELLO, I'M</p>
+          <h1>Sara Ahmed</h1>
+          <p class="job-title">Information Technology Student · Aspiring Web Developer</p>
+          <p class="hero-description">Building useful, accessible web experiences — one project at a time.</p>
+        </div>
+      </div>
+      <nav class="no-print" aria-label="CV sections">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cv-container">
+    <div class="two-column">
+      <section id="about" class="cv-section">
+        <div class="section-heading"><span class="section-number">01</span><h2>About Me</h2></div>
+        <p>I am an Information Technology student who enjoys developing web applications and solving real-world problems with technology.</p>
+        <p id="about-extra" hidden>My interests include user-centered design, JavaScript, data-driven applications, and collaborative software projects. I am always looking for opportunities to build and learn.</p>
+        <button id="about-toggle" type="button" class="text-btn no-print" aria-expanded="false" aria-controls="about-extra">Show More +</button>
+      </section>
+
+      <section id="education" class="cv-section">
+        <div class="section-heading"><span class="section-number">02</span><h2>Education</h2></div>
+        <article class="education-item">
+          <span class="item-year">2023 – 2027 (Expected)</span>
+          <h3>King Abdulaziz University</h3>
+          <p>Bachelor of Information Technology</p>
+          <p class="muted">Jeddah, Saudi Arabia</p>
+        </article>
+      </section>
+    </div>
+
+    <section id="skills" class="cv-section">
+      <div class="section-heading"><span class="section-number">03</span><h2>Skills</h2></div>
+      <ul class="skills-list">
+        <li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Git & GitHub</li><li>Problem Solving</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="cv-section">
+      <div class="section-heading"><span class="section-number">04</span><h2>Projects</h2></div>
+      <p class="section-intro">These cards are generated with <strong>JavaScript DOM</strong> from an array of objects — not hard-coded in HTML.</p>
+      <div class="filter-row no-print" role="group" aria-label="Filter projects by category">
+        <button type="button" class="project-filter active" data-category="all" aria-pressed="true">All</button>
+        <button type="button" class="project-filter" data-category="web" aria-pressed="false">Web</button>
+        <button type="button" class="project-filter" data-category="programming" aria-pressed="false">Programming</button>
+        <span id="project-count" class="filter-count" role="status" aria-live="polite"></span>
+      </div>
+      <div id="projects-container" class="project-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="contact" class="cv-section contact-section">
+      <div class="section-heading"><span class="section-number">05</span><h2>Contact</h2></div>
+      <p>For this demo, placeholder contact details are used. You can add links you are comfortable sharing publicly.</p>
+      <div class="contact-row">
+        <span>GitHub: <strong>github.com/your-username</strong></span>
+        <button id="print-cv" type="button" class="btn btn-primary no-print">↧ Print / Save PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="no-print">
+    <p>CPIT 405 · Lab 5 Demo · Same CV structure, now powered by the DOM</p>
+  </footer>
+</body>
+</html>
